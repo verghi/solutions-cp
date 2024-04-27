@@ -168,7 +168,55 @@ string intToRoman(int num) {
 }
 
 
+// solution for the problem house robber leetcode https://leetcode.com/problems/house-robber/
 
+int rob(vector<int>& nums) {
+    int current_max=0;
+    if (nums.size()==1)
+    {
+        current_max=nums[0];
+    }
+    else if (nums.size()==2)
+    {
+        current_max= max(nums[0],nums[1]);
+    }
+    else
+    {
+        int last_max=nums[0];
+        int last_rob_value=nums[0];
+        int index_last_rob=0;
+        current_max=nums[0];
+        if (nums[1]>nums[0])
+        {
+            current_max=nums[1];
+            last_max=nums[0];
+            last_rob_value=nums[1];
+            index_last_rob=1;
+        }
+        for (int i=2;i<nums.size();i++)
+        {
+            if (i-index_last_rob==1)
+            {
+                if (nums[i]+last_max > current_max)
+                {
+                    int aux=last_max;
+                    last_max=current_max;
+                    current_max= nums[i]+aux;
+                    index_last_rob=i;
+                    last_rob_value=nums[i];
+                }
+            }
+            else
+            {
+                last_max=current_max;
+                current_max+=nums[i];
+                last_rob_value=nums[i];
+                index_last_rob=i;
+            }
+        }
+    }
+    return current_max;
+}
 
 int main()
 {
