@@ -92,6 +92,84 @@ int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
     return t[m-1][n-1];
     }
 
+
+//solution for the leetcode problem https://leetcode.com/problems/roman-to-integer/description/
+
+string make_str(string symbol,int counti)
+{
+    string res;
+    for (int i=0;i<counti;i++)
+    {
+        res+=symbol;
+    }
+    return res;
+}
+
+string handle_layer (int  layer, int coeff, map<int,string> symbols)
+{
+    string res="";
+    if (layer == 9)
+    {
+        res=make_str(symbols[9*coeff],1);
+    }
+    else if (layer == 4)
+    {
+        res=make_str(symbols[4*coeff],1);
+    }
+    else if (layer == 5)
+    {
+        res=make_str(symbols[5*coeff],1);
+    }
+    else if (layer == 1)
+    {
+        res= make_str(symbols[coeff],1);
+    }
+    else
+    {
+        res=make_str(symbols[5*coeff],layer/5)+make_str(symbols[coeff],layer%5);
+    }
+    return res;
+}
+
+string intToRoman(int num) {
+    map <int,string> symbols;
+    symbols[1]="I";
+    symbols[5]="V";
+    symbols[10]="X";
+    symbols[50]="L";
+    symbols[100]="C";
+    symbols[500]="D";
+    symbols[1000]="M";
+    //exceptions
+    symbols[4]="IV";
+    symbols[9]="IX";
+    symbols[40]="XL";
+    symbols[90]="XC";
+    symbols[400]="CD";
+    symbols[900]="CM";
+
+    //Thousands, we are sure that nums cannot exceed thousands
+    int layer1=(num/1000);
+    string str1=make_str("M",layer1);
+
+    //hundreds
+    int layer2=((num%1000)/100) ;
+    string str2=handle_layer(layer2,100,symbols);
+
+    //decimals
+    int layer3=(num%100)/10;
+    string str3=handle_layer(layer3,10,symbols);
+
+    //digits
+    int layer4=(num%10);
+    string str4=handle_layer(layer4,1,symbols);
+
+    return str1+str2+str3+str4;
+}
+
+
+
+
 int main()
 {
     return 0;
