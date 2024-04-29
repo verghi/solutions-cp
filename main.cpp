@@ -260,6 +260,30 @@ int maxSubArray_1(vector<int>& nums) {
         return maxSum;
 }
 
+
+// solution for the problem https://leetcode.com/problems/watering-plants/
+// an optimization could be made to the solution at the memory level (next)
+int wateringPlants(vector<int>& plants, int capacity) {
+    int initial_position=-1;
+    int initial_capacity=capacity;
+    int steps=0;
+    for (int i=0;i<plants.size();i++)
+    {
+        if (capacity>=plants[i])
+        {
+            steps+=1;
+            capacity-=plants[i];
+        }
+        else
+        {
+            steps+=2*(i-initial_position)-1;
+            capacity=initial_capacity;
+            capacity-=plants[i];
+        }
+    }
+    return steps;
+}
+
 int main()
 {
     return 0;
