@@ -218,6 +218,37 @@ int rob(vector<int>& nums) {
     return current_max;
 }
 
+
+// solution for the problem https://leetcode.com/problems/maximum-subarray/description/
+int maxSubArray(vector <int>&nums)
+{
+    int current_max=nums[0];
+    int active_sum=nums[0];
+    for (int i=1;i<nums.size();i++)
+    {
+        if (active_sum+nums[i]<=nums[i])
+        {
+            active_sum=nums[i];
+            if (nums[i]>current_max)
+            {
+                current_max=nums[i];
+            }
+        }
+        else if (active_sum+nums[i]>=current_max)
+        {
+            current_max=active_sum+nums[i];
+            active_sum+=nums[i];
+        }
+        else if (active_sum+nums[i]>nums[i] && active_sum+nums[i]<current_max)
+        {
+            active_sum+=nums[i];
+        }
+
+    }
+    return current_max;
+}
+
+
 int main()
 {
     return 0;
