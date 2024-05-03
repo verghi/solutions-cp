@@ -283,6 +283,23 @@ int wateringPlants(vector<int>& plants, int capacity) {
     }
     return steps;
 }
+// solution for the problem https://leetcode.com/problems/sort-the-students-by-their-kth-score
+
+vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+    vector <vector<int>> res;
+    vector <pair <int,vector<int>>> kpairs;
+    for (int i=0;i<score.size();i++)
+    {
+        kpairs.push_back(make_pair(score[i][k],score[i]));
+    }
+    sort(kpairs.begin(),kpairs.end());
+    for (int i=kpairs.size()-1;i>=0;i--)
+    {
+        res.push_back(kpairs[i].second);
+    }
+    return res;
+}
+
 
 int main()
 {
