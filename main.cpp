@@ -301,6 +301,46 @@ vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
 }
 
 
+//solution for the problem https://leetcode.com/problems/arithmetic-subarrays/
+
+vector <int> subvec(vector <int> v, int start, int end)
+{
+    vector <int> subvec;
+    subvec.reserve(end-start);
+    for (int i=start;i<=end;i++)
+    {
+        subvec.push_back(v[i]);
+    }
+    return subvec;
+}
+// check if the vector is arithmetic or not
+bool arithmetic (vector <int> v)
+{
+    sort (v.begin(),v.end());
+    bool ok=true;
+    int diff=v[1]-v[0];
+    for (int i=2;i<v.size();i++)
+    {
+        if (v[i]-v[i-1]!=diff)
+        {
+            ok=false;
+            break;
+        }
+    }
+    return ok;
+}
+
+vector<bool> checkArithmeticSubarrays(vector<int>& nums, vector<int>& l, vector<int>& r) {
+    int m=l.size();
+    vector <bool> results;
+    for (int i=0;i<m;i++)
+    {
+        vector <int> aux=subvec(nums,l[i],r[i]);
+        results.push_back(arithmetic(aux));
+    }
+    return results;
+}
+
 int main()
 {
     return 0;
