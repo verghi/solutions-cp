@@ -341,6 +341,27 @@ vector<bool> checkArithmeticSubarrays(vector<int>& nums, vector<int>& l, vector<
     return results;
 }
 
+// solution for https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/ problem
+
+vector<int> searchRange(vector<int>& nums, int target) {
+   vector <int> res;
+   int len =nums.size();
+   if (!binary_search(nums.begin(),nums.end(),target))
+   {
+    res.push_back(-1);
+    res.push_back(-1);
+   }
+   else
+   {
+    int start=lower_bound(nums.begin(),nums.end(),target)-nums.begin();
+    int finali=upper_bound(nums.begin(),nums.end(),target)-nums.begin();
+    res.push_back(start);
+    res.push_back(finali-1);
+   }
+
+   return res;
+}
+
 int main()
 {
     return 0;
